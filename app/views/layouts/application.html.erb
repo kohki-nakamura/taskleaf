@@ -10,6 +10,13 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <%= link_to 'tasks', tasks_path %>
+      <%= link_to 'users', admin_users_path %>
+      <%= link_to 'sign out', logout_path, method: :delete %>
+    <% else %>
+      <%= link_to 'sign in', login_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
