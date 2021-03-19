@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :require_admin
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
@@ -60,5 +61,9 @@ class Admin::UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    end
+
+    def require_admin
+      redirect_to root_path, notice: '管理者権限がありません。' unless current_user.admin?
     end
 end
